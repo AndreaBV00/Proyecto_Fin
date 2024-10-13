@@ -1,0 +1,40 @@
+{% extends 'padre.html' %}
+
+{% block cont_cambia_1 %}
+<h1 class="text-white font-weight-bold">Selecciona la Exposción de tu interés</h1>
+<hr class="divider" />
+</div>
+<div class="col-lg-8 align-self-baseline">
+    <form method="POST" action="#detalles">  <!-- Añadimos el ancla al action -->
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Ver detalles</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block cont_cambia_2 %}
+<div class="container">
+    <!-- Detalles de la exposición -->
+    {% if exposicion_detalle %}
+        <!-- Ancla donde se moverá el scroll cuando se envíe el formulario -->
+        <div id="detalles">
+            <h2>{{ exposicion_detalle.nombre }}</h2>
+            <p><strong>Fecha de inicio:</strong> {{ exposicion_detalle.fecha_inicio }}</p>
+            <p><strong>Fecha de fin:</strong> {{ exposicion_detalle.fecha_fin }}</p>
+            
+            <h3>Obras en la exposición:</h3>
+            <ul>
+                {% for obra in exposicion_detalle.obras.all %}
+                    <li>{{ obra.nombre }}</li>
+                {% empty %}
+                    <li>No hay obras para esta exposición.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block cont_cambia_3 %}
+{% endblock %}

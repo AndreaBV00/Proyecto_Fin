@@ -1,0 +1,75 @@
+{% extends 'padre.html' %}
+
+
+{% block cont_cambia_1 %}
+<h1 class="text-white font-weight-bold">El lugar para proponer a nuevos artistas para ser parte de nuestra organización</h1>
+                        <hr class="divider" />
+                    </div>
+                    <div class="col-lg-8 align-self-baseline">
+                        <p class="text-white-75 mb-5">Ya nos conoces, propone al artista que creas que merece participar</p>
+                        <a class="btn btn-primary btn-xl" href="#about">Requisitos</a>
+{% endblock %}
+
+
+{% block cont_cambia_2 %}
+<div class="col-lg-8 text-center">
+    <h2 class="text-white mt-0">Listado de Requisitos mínimos</h2>
+    <hr class="divider divider-light" />
+    <p class="text-white-75 mb-4">Queremos incluir a la mayor cantidad posible de artistas, solo tienen que tener un portfolio, y muchas ganas de participar en una de nuestras muestras</p>
+    
+</div>
+<section class="page-section" id="search-exposicion">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8 col-xl-6 text-center">
+                <h2 class="mt-0">Busca una Exposición</h2>
+                <hr class="divider" />
+                <p class="text-muted mb-5">Selecciona una exposición de la lista para ver los detalles.</p>
+            </div>
+        </div>
+        <!-- Formulario de búsqueda -->
+        <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+            <div class="col-lg-6">
+                <form method="POST" id="searchForm">
+                    {% csrf_token %}
+                    
+                    <!-- Django form rendering -->
+                    {{ form.as_p }}
+                    
+                    <!-- Submit Button -->
+                    <div class="d-grid">
+                        <button class="btn btn-primary btn-xl" id="submitButton" type="submit">Buscar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Detalles de la exposición (se muestran después de la búsqueda) -->
+        {% if exposicion_detalle %}
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8 col-xl-6 text-center">
+                <h3 class="mt-0">Detalles de la Exposición</h3>
+                <hr class="divider" />
+                <p><strong>Nombre:</strong> {{ exposicion_detalle.nombre }}</p>
+                <p><strong>Fecha de inicio:</strong> {{ exposicion_detalle.fecha_inicio }}</p>
+                <p><strong>Fecha de fin:</strong> {{ exposicion_detalle.fecha_fin }}</p>
+                
+                <h4>Obras en la exposición:</h4>
+                <ul class="list-group">
+                    {% for obra in exposicion_detalle.obras.all %}
+                    <li class="list-group-item">{{ obra.nombre }}</li>
+                    {% empty %}
+                    <li class="list-group-item">No hay obras en esta exposición.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
+
+{% block cont_cambia_3 %}
+
+{% endblock %}
