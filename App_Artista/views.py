@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
+from django.contrib.auth import login
+from django.contrib.auth.models import Group
 from .models import Artista_invitado, Artista, Obra, Exposicion
-from .forms import Artista_invitadoForm, ExposicionSeleccionForm
+from .forms import Artista_invitadoForm, CustomUserCreationForm, ExposicionSeleccionForm
+from django.contrib.auth.forms import AuthenticationForm
 
 # Create your views here.
 def Artista_Invitado(request):
@@ -69,5 +72,14 @@ def detalle_exposicion(request):
     
     return render(request, 'Exposiciones.html', {'form': form, 'exposicion_detalle': exposicion_detalle})
 
-def Login(request):
-    return render(request, 'Login.html', {})
+
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('Artista_invitado')  # Redirige a la página de inicio de sesión o a donde quieras
+    else:
+        form = CustomUserCreationForm()
+
+    return render(request, 'Registro.html', {'form': form})
