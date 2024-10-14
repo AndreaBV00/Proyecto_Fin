@@ -127,4 +127,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'  # La URL base para acceder a los archivos subidos
-LOGIN_REDIRECT_URL = '/accounts/profile/'  # URL a la que quieres que redirija después del login
+LOGIN_REDIRECT_URL = '/App_Artista/accounts/profile/'  # URL a la que quieres que redirija después del login

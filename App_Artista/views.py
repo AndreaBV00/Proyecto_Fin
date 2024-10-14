@@ -92,3 +92,6 @@ class CustomLoginView(LoginView):
     form_class = CustomLoginForm
 
 
+@login_required
+def profile_view(request):
+    return render(request, 'accounts/profile.html')  # Asegúrate de que esta plantilla exista
