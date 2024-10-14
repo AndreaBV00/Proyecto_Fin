@@ -1,0 +1,17 @@
+{% extends 'padre.html' %}
+
+
+{% block cont_cambia_1 %}
+<h1>Perfil de {{ user.username }}</h1>
+    <p>Correo: {{ user.email }}</p>
+    <p>Nombre completo: {{ user.get_full_name }}</p>
+{% endblock %}
+
+
+{% block cont_cambia_2 %}
+
+{% endblock %}
+
+{% block cont_cambia_3 %}
+
+{% endblock %}

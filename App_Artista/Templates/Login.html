@@ -7,7 +7,14 @@
 
 
 {% block cont_cambia_2 %}
-
+<div class="login-container">
+    <h2>Iniciar Sesión</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- O renderiza el formulario campo por campo -->
+        <button type="submit" class="btn btn-primary">Ingresar</button>
+    </form>
+</div>
 {% endblock %}
 
 {% block cont_cambia_3 %}

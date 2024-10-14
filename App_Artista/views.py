@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import login
 from django.contrib.auth.models import Group
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.decorators import login_required
 from .models import Artista_invitado, Artista, Obra, Exposicion
-from .forms import Artista_invitadoForm, CustomUserCreationForm, ExposicionSeleccionForm
+from .forms import Artista_invitadoForm, CustomUserCreationForm, ExposicionSeleccionForm, CustomLoginForm
 from django.contrib.auth.forms import AuthenticationForm
 
 # Create your views here.
@@ -75,11 +77,18 @@ def detalle_exposicion(request):
 
 def register(request):
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
+        log_form = CustomUserCreationForm(request.POST)
+        if log_form.is_valid():
+            log_form.save()
             return redirect('Artista_invitado')  # Redirige a la página de inicio de sesión o a donde quieras
     else:
-        form = CustomUserCreationForm()
+        log_form = CustomUserCreationForm()
 
-    return render(request, 'Registro.html', {'form': form})
+    return render(request, 'Inicio.html', {'log_form': log_form})
+
+
+class CustomLoginView(LoginView):
+    template_name = 'Login.html'  # Nombre de la plantilla de inicio de sesión
+    form_class = CustomLoginForm
+
+
