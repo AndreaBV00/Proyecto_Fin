@@ -1,0 +1,42 @@
+{% extends 'padre.html' %}
+
+{% block cont_cambia_1 %}
+<h1 class="text-white font-weight-bold">Estado de las votaciones de los artistas invitados</h1>
+                        <hr class="divider" />
+                    </div>
+                    <div class="col-lg-8 align-self-baseline">
+                        <p class="text-white-75 mb-5">Artistas y votos</p>
+                        <a class="btn btn-primary btn-xl" href="#about">Detalle</a>
+{% endblock %}
+
+{% block cont_cambia_2 %}
+<h1>Votos de Artistas</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Artista</th>
+            <th>Email</th>
+            <th>Cantidad de Votos</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for voto in votos %}
+            <tr>
+                <td>{{ voto.artista.nombre }}</td>
+                <td>{{ voto.artista.Email_contacto }}</td>
+                <td>{{ voto.cantidad_votos }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block cont_cambia_3 %}
+<!-- Botón de Cerrar Sesión -->
+<div class="d-flex justify-content-center">
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Cerrar sesión</button>
+    </form>
+</div>
+{% endblock %}

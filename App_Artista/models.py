@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Artista(models.Model):
@@ -39,3 +40,10 @@ class Artista_invitado(models.Model):
   
     def __str__(self):
         return self.nombre
+
+class VotoArtista(models.Model):
+    artista = models.ForeignKey(Artista_invitado, on_delete=models.CASCADE)
+    cantidad_votos = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f'{self.artista.nombre} - Votos: {self.cantidad_votos}'

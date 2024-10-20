@@ -1,17 +1,59 @@
 {% extends 'padre.html' %}
 
-
 {% block cont_cambia_1 %}
-<h1>Perfil de {{ user.username }}</h1>
+    <h1>Perfil de {{ user.username }}</h1>
     <p>Correo: {{ user.email }}</p>
-    <p>Nombre completo: {{ user.get_full_name }}</p>
+    {% if user.is_staff %}
+    <a href="{% url 'mostrar_votos' %}">Ver Votos de Artistas</a>
+    {% endif %}
+
+    <!-- Mostrar mensajes de éxito -->
+    {% if messages %}
+        <div class="alert alert-success" role="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}
 
-
 {% block cont_cambia_2 %}
-
+    <h2>Elige tu artista favorito</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="artista_favorito">Selecciona un artista:</label>
+            <select class="form-control" name="artista_favorito" id="artista_favorito" onchange="mostrarDetalles()">
+                <option value="">Seleccione un artista</option>  <!-- Elemento vacío -->
+                {% for artista in artistas %}
+                    <option value="{{ artista.id }}">{{ artista.nombre }} - {{ artista.nacionalidad }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div id="detalles_artista" style="display:none;">
+            <h3>Detalles del Artista Seleccionado:</h3>
+            <p id="nombre_artista"></p>
+            <p id="nacionalidad_artista"></p>
+            <p id="fecha_nacimiento_artista"></p>
+            <p id="texto_motivacional_artista"></p>
+            <p id="link_obras_artista"></p>
+        </div>
+        <div class="d-grid">
+            <button class="btn btn-primary btn-xl" type="submit">Enviar</button>
+        </div>
+    </form>
 {% endblock %}
 
 {% block cont_cambia_3 %}
-
+<!-- Botón de Cerrar Sesión -->
+<div class="d-flex justify-content-center">
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Cerrar sesión</button>
+    </form>
+</div>
 {% endblock %}
+
+
+
+

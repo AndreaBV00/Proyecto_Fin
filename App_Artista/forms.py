@@ -95,3 +95,13 @@ class CustomLoginForm(AuthenticationForm):
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre de usuario'}))
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Contraseña'}))
+
+class ArtistaSeleccionForm(forms.Form):
+    artista = forms.ModelChoiceField(
+        queryset=Artista.objects.all(),
+        widget=forms.Select(attrs={
+            'class': 'form-control'
+        }),
+        label=''
+    )
+    

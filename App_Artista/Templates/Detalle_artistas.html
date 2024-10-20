@@ -1,15 +1,49 @@
 {% extends 'padre.html' %}
 
-
 {% block cont_cambia_1 %}
-
+    <h1 class="mt-4 text-white font-weight-bold text-center">Artistas Disponibles</h1>
+    <hr class="divider" />
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <!-- Lista de artistas centrada -->
+            <ul class="list-group text-center">
+                {% for artista in artistas %}
+                    <li class="list-group-item">
+                        <!-- El enlace te lleva a la sección de detalles -->
+                        <a href="?artista_id={{ artista.id }}#detalle">{{ artista.nombre }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}
 
-
 {% block cont_cambia_2 %}
-
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Detalle del artista seleccionado -->
+            <div id="detalle">
+                {% if artista_detalle %}
+                    <h2>Detalles del Artista</h2>
+                    <p><strong>Nombre:</strong> {{ artista_detalle.nombre }}</p>
+                    <p><strong>Nacionalidad:</strong> {{ artista_detalle.nacionalidad }}</p>
+                    <p><strong>Fecha de nacimiento:</strong> {{ artista_detalle.fecha_nacimiento }}</p>
+                    <p><strong>Fecha de defunción:</strong> {{ artista_detalle.fecha_defuncion }}</p>
+                    <p><strong>Biografía:</strong> {{ artista_detalle.biografia }}</p>
+                    {% if artista_detalle.foto %}
+                        <p><strong>Foto:</strong></p>
+                        <img src="{{ artista_detalle.foto.url }}" alt="{{ artista_detalle.nombre }}" class="img-fluid">
+                    {% else %}
+                        <p>No hay foto disponible.</p>
+                    {% endif %}
+                {% else %}
+                    <p>Selecciona un artista para ver los detalles.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block cont_cambia_3 %}
-
+<!-- Contenido adicional si lo necesitas -->
 {% endblock %}
