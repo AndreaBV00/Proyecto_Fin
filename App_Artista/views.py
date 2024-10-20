@@ -145,3 +145,13 @@ def is_admin(user):
 def mostrar_votos(request):
     votos = VotoArtista.objects.all()  # Obtén todos los votos
     return render(request, 'votos_artistas.html', {'votos': votos})
+
+@user_passes_test(is_admin)
+def eliminar_artista(request, artista_id):
+    if request.method == 'POST':  # Verifica si se ha enviado un formulario POST
+        artista = get_object_or_404(Artista_invitado, id=artista_id)
+        artista.delete()
+        return redirect('artista_eliminado')  # Cambia esto a la vista que deseas redirigir después de eliminar
+    
+def artista_eliminado(request):
+    return render(request, 'Artista_Eliminado.html')

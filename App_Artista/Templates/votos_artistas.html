@@ -25,6 +25,12 @@
                 <td>{{ voto.artista.nombre }}</td>
                 <td>{{ voto.artista.Email_contacto }}</td>
                 <td>{{ voto.cantidad_votos }}</td>
+                <td>
+                    <form method="POST" action="{% url 'eliminar_artista' voto.artista.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </td>
             </tr>
         {% endfor %}
     </tbody>

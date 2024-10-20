@@ -13,6 +13,9 @@ urlpatterns = [
     path('accounts/profile/', views.profile_view, name='profile'),
     path('logout/', auth_views.LogoutView.as_view(next_page='Inicio'), name='logout'),
     path('votos/', views.mostrar_votos, name='mostrar_votos'),
+    path('eliminar_artista/<int:artista_id>/', views.eliminar_artista, name='eliminar_artista'),
+    path('Gracias/', views.pagina_gracias, name='Gracias'),
+    path('artista_eliminado/', views.artista_eliminado, name='artista_eliminado'),
 ]
 
 
