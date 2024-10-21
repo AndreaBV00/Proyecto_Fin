@@ -1,8 +1,14 @@
 {% extends 'padre.html' %}
 
 {% block cont_cambia_1 %}
-    <h1>Perfil de {{ user.username }}</h1>
-    <p>Correo: {{ user.email }}</p>
+<h1 class="text-white font-weight-bold">Elige a tu artista favorito:</h1>
+<ul class="list-unstyled text-white h5">
+    {% for artista in artistas %}
+        <li>
+            <strong>{{ artista.nombre }}</strong> - 
+            <a href="{{ artista.link_obras }}" target="_blank" class="text-white">Ver Obras</a>
+        </li>
+    {% endfor %}
     {% if user.is_staff %}
     <a href="{% url 'mostrar_votos' %}">Ver Votos de Artistas</a>
     {% endif %}
